@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="LaserGecko web app for TUES Fest" content="Laser engraving">
+        <meta name="keywords" content="HTML, CSS, JavaScript, NodeJS">
+        <meta name="LaserGecko" content="LaserGecko">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LaserGecko</title>
+        <link rel="icon" href="images/gecko.jfif" type="image/png">
+
+        <script>
+            function initialization(){}
+
+            function signIn(method){
+                document.getElementById("signInMethods").style.visibility = "hidden";
+                document.getElementById("signInForm").style.visibility = "visible";
+                document.getElementById("returnButton").style.visibility = "visible";
+
+                if(method == "signup"){
+                    document.getElementById("signInButton").value = "Sign up";
+                    document.getElementById("signInFormMethod").value = "signup";
+                }else if(method == "login"){
+                    document.getElementById("signInButton").value = "Log in";
+                    document.getElementById("signInFormMethod").value = "login";
+                }
+            }
+            function resetSignIn(){
+                document.getElementById("signInMethods").style.visibility = "visible";
+                document.getElementById("signInForm").style.visibility = "hidden";
+                document.getElementById("returnButton").style.visibility = "hidden";
+                document.getElementById("signInButton").value = "";
+                document.getElementById("signInFormMethod").value = "";
+            }
+            /*function checkCredentials(){
+                var url = "/userExists";
+                var params = "lorem=ipsum&name=alpha";
+                var xhr = new XMLHttpRequest();
+
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status == 200){
+                        //DO SOMETHING
+                    }
+                };
+                xhr.send(params);
+            }
+            */
+        </script>
+
+        <style>
+            body{
+                overflow-y:hidden;
+                background-color:seashell;
+            }
+
+            #returnButton{
+                position:absolute;
+                width:10%;
+                height:fit-content;
+                right:10%;
+                top:10%;
+
+                visibility:hidden;
+            }
+            #returnButton:hover{
+                background-color:lightgray;
+            }
+
+            #signInMethods{
+                position:absolute;
+                width:30%;
+                height:35%;
+                left:35%;
+                top:32.5%;
+
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                align-items:center;
+            }
+            .signInMethods{
+                position:relative;
+                width:80%;
+                height:30%;
+                margin-top:auto;
+                margin-bottom:auto;
+
+                font-size:15px;
+                text-decoration:none;
+            }
+            .signInMethods:hover{
+                background-color:lightgray;
+            }
+
+            #signInForm{
+                position:absolute;
+                width:30%;
+                height:35%;
+                left:35%;
+                top:32.5%;
+
+                display:flex;
+                flex-direction:column;
+
+                border:1px solid black;
+                visibility:hidden;
+            }
+            .signInFormField{
+                position:relative;
+                width:80%;
+                height:10%;
+
+                align-self:center;
+                margin-top:auto;
+                margin-bottom:auto;
+
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+            }
+            #signInButton{
+                width:fit-content;
+                left:10%;
+                align-self:normal;
+            }
+
+            @media screen and (max-width:1200px){
+                #returnButton{
+                    width:25%;
+                    height:fit-content;
+                }
+                #signInForm{
+                    position:absolute;
+                    width:fit-content;
+                    left:0%;
+                    right:0%;
+                    margin-left:auto;
+                    margin-right:auto;
+                    margin-top:auto;
+                    margin-bottom:auto;
+                }
+                .signInFormField{
+                    width:80%;
+                }
+                #signInButton{
+                    width:80%;
+                    left:0%;
+                    align-self:center;
+                }
+            }
+        </style>
+    </head>
+    <body onload="initialization()">
+        <div id="signInMethods">
+            <button class="signInMethods" onclick="signIn('login')">Log in</button>
+            <button class="signInMethods" onclick="signIn('signup')">Sign up</button>
+        </div>
+        <button id="returnButton">Промяна на метод за записване</button>
+        <form id="signInForm" method="POST" action="/signin">
+            <label class="signInFormField" for="user">Потребителско име</label>
+            <input class="signInFormField" placeholder="Потребителско име" name="user" type="text" required/>
+            <label class="signInFormField" for="password">Парола</label>
+            <input class="signInFormField" placeholder="Парола" name="password" type="password" required/>
+            <input class="signInFormField" id="signInButton" type="submit" value=""/>
+            <input id="signInFormMethod" name="signinmethod" type="hidden" value=""/>
+        </form>
+    </body>
+</html>

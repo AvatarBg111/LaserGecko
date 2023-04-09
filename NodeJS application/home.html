@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="LaserGecko web app for TUES Fest" content="Laser engraving">
+        <meta name="keywords" content="HTML, CSS, JavaScript, NodeJS">
+        <meta name="LaserGecko" content="LaserGecko">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LaserGecko</title>
+        <link rel="icon" href="images/gecko.jfif" type="image/png">
+
+        <script>
+            const wide_window_image_path_arr = ["images/engraved_turtle.png",
+                                    "images/Laser_1.jpg", 
+                                    "images/engraved_yautja_wide_version.png"];
+            const narrow_window_image_path_arr = ["images/engraved_bull.png",
+                                    "images/Laser_1.jpg", 
+                                    "images/engraved_yautja.png"];
+            var merch_image_cnt, window_size_mode, menu_opened;
+            var max_cnt = wide_window_image_path_arr.length - 1;
+
+            function initialization(){
+                merch_image_cnt = 0;
+                menu_opened = 0;
+                change_merch_image();
+
+                if(window.matchMedia('screen and (max-width: 1200px)').matches){
+                    window_size_mode = 1;
+                    change_merch_image();
+                }else{
+                    window_size_mode = 0;
+                    change_merch_image();
+                }
+            }
+
+            function change_merch_image(){
+                let image = document.getElementById("merchImage");
+
+                if(window_size_mode == 0){
+                    image.src = wide_window_image_path_arr[merch_image_cnt];
+                }else if(window_size_mode == 1){
+                    image.src = narrow_window_image_path_arr[merch_image_cnt];
+                }
+            }
+            function increment_image_cnt(){
+                merch_image_cnt++;
+                if(merch_image_cnt > max_cnt){
+                    merch_image_cnt = 0;
+                }
+
+                change_merch_image();
+            }
+            function decrement_image_cnt(){
+                merch_image_cnt--;
+                if(merch_image_cnt < 0){
+                    merch_image_cnt = max_cnt;
+                }
+
+                change_merch_image();
+            }
+
+            function open_nav_bar_menu(){
+                document.getElementById("navBarMenu").style.visibility = 'visible';
+                document.getElementById("navBarMenuShadowEffect").style.visibility = 'visible';
+                document.body.style = "overflow-y:hidden";
+            }
+            function close_nav_bar_menu(){
+                document.getElementById("navBarMenu").style.visibility = 'hidden';
+                document.getElementById("navBarMenuShadowEffect").style.visibility = 'hidden';
+                document.body.style.overflowY = 'hidden';
+                document.body.style = "overflow-y:auto";
+            }
+
+            window.onresize = function(){
+                if(window.matchMedia('screen and (max-width: 1200px)').matches){
+                    window_size_mode = 1;
+                    change_merch_image();
+                }else{
+                    window_size_mode = 0;
+                    change_merch_image();
+                }
+            };
+        </script>
+
+        <style>
+            html::-webkit-scrollbar{
+                display:none;
+            }
+            body{
+                overflow-y:auto;
+                -webkit-overflow-scrolling:touch;
+                background-color:whitesmoke;
+            }
+            #navBar{
+                position:absolute;
+                width:100%;
+                height:100px;
+                left:0px;
+                top:0px;
+                background-color:mediumaquamarine;
+                display:flex;
+                flex-direction:row;
+                align-items:center;
+            }
+            #navBarMenu{
+                position:absolute;
+                width:75%;
+                height:100%;
+                left:0%;
+                top:0%;
+                background-color:lightgray;
+                z-index:2;
+                visibility:hidden;
+            }
+            #navBarMenuShadowEffect{
+                position:absolute;
+                width:25%;
+                height:100%;
+                left:75%;
+                top:0%;
+                visibility:hidden;
+                background-color:rgba(0,0,0,0.6);
+                z-index:2;
+            }
+            #navBarMenuExitButton{
+                position:absolute;
+                width:15%;
+                right:1%;
+                top:1%;
+            }
+            #navBarMenuExitButton:hover{
+                cursor:pointer;
+            }
+            #navBarMenuOptions{
+                position:absolute;
+                width:100%;
+                height:30%;
+                left:0%;
+                top:10%;
+
+                display:flex;
+                flex-direction:column;
+            }
+            #navBarMenuOptions a{
+                position:relative;
+                width:90%;
+                height:20%;
+
+                align-self:flex-end;
+                margin-top:auto;
+                margin-bottom:auto;
+
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+
+                text-decoration-line:none;
+                font-size:20px;
+                color:black;
+            }
+            #navBarMenuIcon{
+                position:absolute;
+                visibility:hidden;
+            }
+            #emblem{
+                position:absolute;
+                width:15%;
+                min-width:fit-content;
+                height:80%;
+                left:1%;
+                margin-left:10px;
+                margin-right:10px;
+
+                align-items:center;
+                display:flex;
+                flex-direction:row;
+            }
+            #emblem img{
+                height:40%;
+                left:0%;
+            }
+            #emblem p{
+                margin-left:10px;
+                width:fit-content;
+                height:fit-content;
+                font-size:32px;
+                text-shadow:0px 0px 10px coral;
+                color:whitesmoke;
+            }
+
+            #users{
+                position:absolute;
+                width:10%;
+                min-width:fit-content;
+                height:60%;
+                right:2%;
+                margin-right:10px;
+                margin-left:10px;
+
+                display:flex;
+                flex-direction:row;
+                align-items:center;
+
+                text-decoration-line:none;
+            }
+            #users p{
+                margin-left:auto;
+                margin-right:6px;
+
+                font-size:20px;
+                color:black;
+            }
+            #users img{
+                height:60%;
+                margin-right:auto;
+                margin-left:6px;
+            }
+
+            #merch{
+                position:absolute;
+                width:100%;
+                height:500px;
+                left:0%;
+                top:100px;
+                background-color:white;
+            }
+            #merch img{
+                position:relative;
+                height:100%;
+                display:block;
+                margin-left:auto;
+                margin-right:auto;
+                text-align:center;
+                z-index:0;
+            }
+            .merch_arrows{
+                position:absolute;
+                width:25px;
+                height:5%;
+                top:47.5%;
+                z-index:1;
+            }
+
+            .orders{
+                width:100%;
+                height:300px;
+                left:0%;
+            }
+            #merchOrder{
+                position:absolute;
+                top:600px;
+                display:flex;
+                flex-direction:row;
+                align-items:center;
+                margin-left:auto;
+                margin-right:auto;
+            }
+            #merchOrder img{
+                width:20%;
+                margin-left:auto;
+                margin-right:auto;
+                box-shadow:0px 0px 25px aquamarine;
+            }
+            #merchOrder p{
+                height:50%;
+                width:50%;
+                margin-left:auto;
+                margin-right:auto;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+            }
+            #customOrder{
+                position:absolute;
+                top:900px;
+                display:flex;
+                flex-direction:row;
+                align-items:center;
+                text-align:center;
+            }
+            #customOrder img{
+                width:20%;
+                margin-left:auto;
+                margin-right:auto;
+                box-shadow:0px 0px 25px aquamarine;
+            }
+            #customOrder p{
+                height:50%;
+                width:50%;
+                margin-left:auto;
+                margin-right:auto;
+
+                display:flex;
+                justify-content:center;
+                align-items:center;
+            }
+
+            #dataSectionBar{
+                position:absolute;
+                width:100%;
+                height:200px;
+                left:0%;
+                top:1200px;
+
+                background:black;
+                color:white;
+                font-size:15px;
+            }
+            #dataSectionBarOptionTable{
+                position:absolute;
+                width:100%;
+                height:80%;
+                left:0%;
+                top:10%;
+
+                display:flex;
+                flex-direction:row;
+                align-items:center;
+            }
+            #dataSectionBarOptionTable .dataContainers{
+                width:30%;
+                height:100%;
+                margin-left:auto;
+                margin-right:auto;
+                text-align:center;
+            }
+            #dataSectionBarOptionTable a{
+                color:white;
+                text-decoration-line:none;
+            }
+            #dataSectionBarOptionTable a:hover{
+                text-shadow:1px 1px 5px aquamarine;
+            }
+
+            @media screen and (max-width:1200px){
+                #navBarMenuIcon{
+                    position:relative;
+                    height:36%;
+                    margin-left:auto;
+                    margin-right:auto;
+                    visibility:visible;
+                }
+                #navBarMenuIcon:hover{
+                    cursor:pointer;
+                }
+                #emblem{
+                    position:relative;
+                    left:0%;
+                    right:0%;
+                    margin-left:auto;
+                    margin-right:auto;
+                }
+                #emblem img{
+                    position:absolute;
+                    visibility:hidden;
+                }
+                #users{
+                    position:relative;
+                    left:0%;
+                    right:0%;
+                    margin-left:auto;
+                    margin-right:auto;
+                }
+                #users p{
+                    display:none;
+                }
+                #users img{
+                    margin-left:auto;
+                    margin-right:auto;
+                }
+                #merch img{
+                    max-width:100%;
+                }
+            }
+        </style>
+    </head>
+    <body onload="initialization()">
+        <div id="navBarMenu">
+            <img id="navBarMenuExitButton" src="images/navbar_menu_exit_button_icon.png" alt="" onclick="close_nav_bar_menu()">
+            <div id="navBarMenuOptions">
+                <a href="/">Начало</a>
+                <a href="/order">Поръчка</a>
+                <a href="/aboutme">За МЕН</a>
+            </div>
+        </div>
+        <div id="navBarMenuShadowEffect"></div>
+
+        <div id="navBar">
+            <img id="navBarMenuIcon" src="images/nav_bar_menu_icon.png" onclick="open_nav_bar_menu()">
+            <div id="emblem">
+                <img src="images/gecko.jfif" alt="Emblem">
+                <p>LaserGecko</p>
+            </div>
+            <a id="users" href="/signinform">
+                <p>Профил</p>
+                <img src="images/accountImage.png" alt="User">
+            </a>
+        </div>
+
+        <div id="merch">
+            <img id="merchImage">
+            <svg class="merch_arrows" style="left:1.25%">
+                <polygon points="25,0 0,12.5 25,25" fill="black"/ onclick="decrement_image_cnt()">
+            </svg>
+            <svg class="merch_arrows" style="right:1.25%">
+                <polygon points="0,0 25,12.5 0,25" fill="black" onclick="increment_image_cnt()"/>
+            </svg>
+        </div>
+
+        <div id="merchOrder" class="orders">
+            <img src="images/gecko.jfif" alt="Emblem">
+            <p>Поръчай</p>
+        </div>
+        <div id="customOrder" class="orders">
+            <p>Поръчай</p>
+            <img src="images/gecko.jfif" alt="Emblem">
+        </div>
+
+        <div id="dataSectionBar">
+            <svg class="spacerLine" width="100%" height="10%" style="position:absolute;left:0%;top:0%">
+                <line x1="1%" y1="50%" x2="99%" y2="50%" style="stroke:white;stroke-width:2"/>
+            </svg>
+
+            <div id="dataSectionBarOptionTable">
+                <div class="dataContainers">
+                    <h1>Магазин</h1>
+                    <p><a href="/order">Поръчка</a></p>
+                    <p><a href="/">Материали</a></p>
+                    <p><a href="/">Машини</a></p>
+                </div>
+
+                <div class="dataContainers">
+                    <h1>Относно</h1>
+                    <p><a href="/">За МЕН</a></p>
+                    <p><a href="/">Галерия</a></p>
+                </div>
+
+                <div class="dataContainers">
+                    <h1>Подкрепа</h1>
+                    <p><a href="/">Остави ревю</a></p>
+                    <p><a href="/">Контакти</a></p>
+                </div>
+            </div>
+
+            <svg class="spacerLine" width="100%" height="10%" style="position:absolute;left:0%;bottom:0%">
+                <line x1="1%" y1="50%" x2="99%" y2="50%" style="stroke:white;stroke-width:2"/>
+            </svg>
+        </div>
+    </body>
+</html>
